@@ -118,7 +118,7 @@ var generate_key = function() {
   });
 }
 
-function Gateway(xpub, exchange_key) {
+function Gateway(xpub, exchange_key, network) {
   var self = this
   this.ies = {}
   if (!(self instanceof Gateway)) return new Gateway(xpub, exchange_key)
@@ -128,7 +128,8 @@ function Gateway(xpub, exchange_key) {
   this.events = new EventEmitter()
 
   // this.retrieved = new HDPublicKey(this.xpub)
-  var bitcoin = new BLT()
+  var config = network === "testnet" ? {testnet:true}:undefined;
+  bitcoin = new BLT(config);
 
   self.update_rates = function() {
 
